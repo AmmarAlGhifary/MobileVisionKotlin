@@ -1,10 +1,9 @@
+
 package com.blogspot.yourfavoritekaisar.mobilevisionkotlin
 
 import android.app.Activity
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -13,7 +12,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.text.FirebaseVisionText
@@ -21,7 +20,6 @@ import com.otaliastudios.cameraview.Audio
 import com.otaliastudios.cameraview.CameraListener
 import com.otaliastudios.cameraview.CameraUtils
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.jar.Manifest
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,11 +33,7 @@ class MainActivity : AppCompatActivity() {
         initListeners()
 
         val permission = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(permission, 100)
-        } else {
-            ActivityCompat.requestPermissions(this, permission, 100)
-        }
+        requestPermissions(permission, 100)
     }
 
     override fun onPause() {
@@ -54,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    @Suppress("DEPRECATION")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -107,11 +102,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
-            R.id.menu_upload -> {
+            R.id.menu_add -> {
                 showCameraView()
                 true
             }
-            R.id.menu_add -> {
+            R.id.menu_upload -> {
                 showGalleryView()
                 true
             }
